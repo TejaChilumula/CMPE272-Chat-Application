@@ -1,5 +1,5 @@
 # Report 
-[Report](https://github.com/sjkchang/CMPE272-Assignment4/blob/master/Assignment%204%20-%20Report.pdf)
+[Report](https://github.com/TejaChilumula/CMPE272-Chat-Application/blob/master/CMPE272-Assignment-4-Report.pdf)
 
 # Testing the applications
 
