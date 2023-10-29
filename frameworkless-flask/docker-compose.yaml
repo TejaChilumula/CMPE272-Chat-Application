@@ -1,0 +1,7 @@
+version: "3"
+
+services:
+    frameworkless:
+        image: sjkchang/frameworkless
+        ports:
+            - "5000:5000"

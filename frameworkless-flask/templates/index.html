@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Tutorial on Flask: A Web socket example</title>
+        <link rel= "stylesheet" type= "text/css" href="{{ url_for('static',filename='style.css') }}">
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+            integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+            crossorigin="anonymous"
+        ></script>
+        <script type="text/javascript">
+            // sending a connect request to the server.
+            var socket = io.connect("http://localhost:5000");
+            function uuidv4() {
+                return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
+                    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+                );
+            }
+
+            var myUUID = uuidv4();
+
+            function handleSend() {
+                var message = document.getElementById("message-input").value;
+                socket.emit("chat", { 
+                    data: {
+                        name: myUUID,
+                        message: message,
+                        timestamp: new Date().getTime()
+                    }
+                });
+
+                document.getElementById("message-input").value = ""
+            }
+
+            $(document).ready(function () {
+            // sending a connect request to the server.
+                socket.on("connect", function () {
+                    socket.on("chat", function (data, cb) {
+                        console.log("Received message: " + data.message);
+                        document.getElementById("message-list").innerHTML += `
+                            <div>
+                                <div class='message ${data.name == myUUID ? "ownerFloat" : ""}'>
+                                    <div class="message-box ${data.name == myUUID ? "ownerColor" : ""}">
+                                        ${data.message}
+                                    </div>
+                                    ${ data.name == myUUID ? "You - " : "" }
+                                    ${ new Date(data.timestamp).toLocaleString() }
+                                </div>
+                            </div>
+                        `;
+                        if (cb) cb();
+                    });
+                });
+            })
+
+            
+        </script>
+        
+    </head>
+    <body>
+        <div class="content">
+            <div id="message-list"></div>
+            <input id="message-input" placeholder="Enter Message"></input>
+            <button onclick="handleSend()">Enter</button>
+        </div>
+    </body>
+    
+</html>

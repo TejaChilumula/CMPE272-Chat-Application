@@ -1,0 +1,41 @@
+.content {
+    margin: 0 auto;
+    width: 50%;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.input {
+    width: 90%;
+    margin: 10px 0;
+    padding: 5px;
+}
+
+#message-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.message-box {
+    display: inline-block;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: lightblue;
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    padding: 5px;
+    border-radius: 5px;
+    width: 250px;
+}
+
+.ownerColor {
+    background-color: grey;
+}
+
+.ownerFloat {
+    float: right;
+}
